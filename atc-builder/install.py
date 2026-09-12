@@ -10,6 +10,9 @@ CURRENT_DIRECTORY = Path(__file__).parent
 HOST_DEPENDENCIES = {
     "docker": "For building targets in dev container",
     "SDL2_image-devel": "For running device UI on dev host machine",
+    "bear": "For generating compile_commands.json of STM32CubeIDE targets",
+    "STM32CubeIde": "For STM32 projects inside 'platform' subdirectory",
+    "STM32CubeMX": "For generating STM32 pinout configs"
 }
 
 
@@ -20,8 +23,8 @@ def print_dependencies(logger: Logger):
 
     logger.log_info("=== Required host dependencies: ===")
 
-    for dep in HOST_DEPENDENCIES:
-        logger.log_info(f"\t* {dep}\n", end="")
+    for dep, desc in HOST_DEPENDENCIES.items():
+        logger.log_info(f"\t* {dep}: {desc}\n", end="")
 
     logger.log_info("")
 
