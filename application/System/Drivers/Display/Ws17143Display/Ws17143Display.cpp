@@ -26,18 +26,18 @@ void Ws17143Display::setWindow(const Rectangle& window) {
         uint8_t(window.yEnd & 0xFF)
     };
 
-    for (uint16_t i = 0; i < 4; i++) {
-        flexibleMemoryController_.writeRegister(
-            RegisterNumber {uint16_t(COLUMN_SET_REGISTER.value + i)}
-        );
-        flexibleMemoryController_.writeData(Data {xBytes.at(i)});
+    for (uint8_t i = 0; i < 4; i++) {
+        flexibleMemoryController_.writeRegister(COLUMN_SET_REGISTER + i);
+        // NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index)
+        flexibleMemoryController_.writeData(xBytes[i]);
+        // NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)
     }
 
     for (uint8_t i = 0; i < 4; i++) {
-        flexibleMemoryController_.writeRegister(
-            RegisterNumber {uint16_t(ROW_SET_REGISTER.value + i)}
-        );
-        flexibleMemoryController_.writeData(Data {yBytes.at(i)});
+        flexibleMemoryController_.writeRegister(ROW_SET_REGISTER + i);
+        // NOLINTBEGIN(cppcoreguidelines-pro-bounds-constant-array-index)
+        flexibleMemoryController_.writeData(yBytes[i]);
+        // NOLINTEND(cppcoreguidelines-pro-bounds-constant-array-index)
     }
 }
 
@@ -122,7 +122,7 @@ void Ws17143Display::drawTestPattern(uint8_t seed) {
                 color = GREEN_565 / seed;
             }
 
-            flexibleMemoryController_.writeData(Data {color});
+            flexibleMemoryController_.writeData(color);
         }
     }
 }
@@ -141,7 +141,7 @@ void Ws17143Display::draw(
              xIndex++) {
             const uint16_t color =
                 frameBuffer[(yIndex * WIDTH_) + xIndex];
-            flexibleMemoryController_.writeData(Data {color});
+            flexibleMemoryController_.writeData(color);
         }
     }
 

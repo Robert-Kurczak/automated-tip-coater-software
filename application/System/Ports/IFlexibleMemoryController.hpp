@@ -5,29 +5,9 @@
 namespace ATC {
 class IFlexibleMemoryController {
 public:
-    struct RegisterAddress {
-        uintptr_t value;
-        constexpr bool operator==(const RegisterAddress&) const = default;
-    };
-
-    struct DataAddress {
-        uintptr_t value;
-        constexpr bool operator==(const DataAddress&) const = default;
-    };
-
-    struct RegisterNumber {
-        uint16_t value;
-        constexpr bool operator==(const RegisterNumber&) const = default;
-    };
-
-    struct Data {
-        uint16_t value;
-        constexpr bool operator==(const Data&) const = default;
-    };
-
     struct Instruction {
-        RegisterNumber registerNumber;
-        Data data;
+        uint16_t registerAddress;
+        uint16_t data;
         constexpr bool operator==(const Instruction&) const = default;
     };
 
@@ -42,13 +22,13 @@ public:
 
     virtual ~IFlexibleMemoryController() = default;
 
-    virtual void writeRegister(RegisterNumber registerNumber) = 0;
-    virtual void writeData(Data data) = 0;
+    virtual void writeRegister(uint16_t registerAddress) = 0;
+    virtual void writeData(uint16_t data) = 0;
     virtual void write(const Instruction& instruction) = 0;
 
     [[nodiscard]] virtual uint16_t readData() const = 0;
     [[nodiscard]] virtual uint16_t read(
-        RegisterNumber registerNumber
+        uint16_t registerAddress
     ) const = 0;
 };
 }

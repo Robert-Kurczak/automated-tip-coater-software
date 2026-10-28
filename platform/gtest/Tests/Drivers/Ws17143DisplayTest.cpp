@@ -40,93 +40,85 @@ public:
 
         EXPECT_CALL(
             flexibleMemoryControllerMock_,
-            writeData(Data {uint16_t(window.xStart >> 8)})
+            writeData(uint16_t(window.xStart >> 8))
         )
             .RetiresOnSaturation();
 
         EXPECT_CALL(
             flexibleMemoryControllerMock_,
-            writeRegister(RegisterNumber {COLUMN_SET_REGISTER.value + 1})
+            writeRegister(COLUMN_SET_REGISTER + 1)
+        )
+            .RetiresOnSaturation();
+
+        EXPECT_CALL(
+            flexibleMemoryControllerMock_, writeData(window.xStart & 0xFF)
         )
             .RetiresOnSaturation();
 
         EXPECT_CALL(
             flexibleMemoryControllerMock_,
-            writeData(Data {uint16_t(window.xStart & 0xFF)})
+            writeRegister(COLUMN_SET_REGISTER + 2)
+        )
+            .RetiresOnSaturation();
+
+        EXPECT_CALL(
+            flexibleMemoryControllerMock_, writeData(window.xEnd >> 8)
         )
             .RetiresOnSaturation();
 
         EXPECT_CALL(
             flexibleMemoryControllerMock_,
-            writeRegister(RegisterNumber {COLUMN_SET_REGISTER.value + 2})
+            writeRegister(COLUMN_SET_REGISTER + 3)
         )
             .RetiresOnSaturation();
 
         EXPECT_CALL(
-            flexibleMemoryControllerMock_,
-            writeData(Data {uint16_t(window.xEnd >> 8)})
-        )
-            .RetiresOnSaturation();
-
-        EXPECT_CALL(
-            flexibleMemoryControllerMock_,
-            writeRegister(RegisterNumber {COLUMN_SET_REGISTER.value + 3})
-        )
-            .RetiresOnSaturation();
-
-        EXPECT_CALL(
-            flexibleMemoryControllerMock_,
-            writeData(Data {uint16_t(window.xEnd & 0xFF)})
+            flexibleMemoryControllerMock_, writeData(window.xEnd & 0xFF)
         )
             .RetiresOnSaturation();
     }
 
     void expectSetRowCursor(const Rectangle& window) {
         EXPECT_CALL(
-            flexibleMemoryControllerMock_,
-            writeRegister(ROW_SET_REGISTER)
+            flexibleMemoryControllerMock_, writeRegister(ROW_SET_REGISTER)
+        )
+            .RetiresOnSaturation();
+
+        EXPECT_CALL(
+            flexibleMemoryControllerMock_, writeData(window.yStart >> 8)
         )
             .RetiresOnSaturation();
 
         EXPECT_CALL(
             flexibleMemoryControllerMock_,
-            writeData(Data {uint16_t(window.yStart >> 8)})
+            writeRegister(ROW_SET_REGISTER + 1)
+        )
+            .RetiresOnSaturation();
+
+        EXPECT_CALL(
+            flexibleMemoryControllerMock_, writeData(window.yStart & 0xFF)
         )
             .RetiresOnSaturation();
 
         EXPECT_CALL(
             flexibleMemoryControllerMock_,
-            writeRegister(RegisterNumber {ROW_SET_REGISTER.value + 1})
+            writeRegister(ROW_SET_REGISTER + 2)
+        )
+            .RetiresOnSaturation();
+
+        EXPECT_CALL(
+            flexibleMemoryControllerMock_, writeData(window.yEnd >> 8)
         )
             .RetiresOnSaturation();
 
         EXPECT_CALL(
             flexibleMemoryControllerMock_,
-            writeData(Data {uint16_t(window.yStart & 0xFF)})
+            writeRegister(ROW_SET_REGISTER + 3)
         )
             .RetiresOnSaturation();
 
         EXPECT_CALL(
-            flexibleMemoryControllerMock_,
-            writeRegister(RegisterNumber {ROW_SET_REGISTER.value + 2})
-        )
-            .RetiresOnSaturation();
-
-        EXPECT_CALL(
-            flexibleMemoryControllerMock_,
-            writeData(Data {uint16_t(window.yEnd >> 8)})
-        )
-            .RetiresOnSaturation();
-
-        EXPECT_CALL(
-            flexibleMemoryControllerMock_,
-            writeRegister(RegisterNumber {ROW_SET_REGISTER.value + 3})
-        )
-            .RetiresOnSaturation();
-
-        EXPECT_CALL(
-            flexibleMemoryControllerMock_,
-            writeData(Data {uint16_t(window.yEnd & 0xFF)})
+            flexibleMemoryControllerMock_, writeData(window.yEnd & 0xFF)
         )
             .RetiresOnSaturation();
     }
@@ -350,9 +342,7 @@ TEST_F(
         );
 
         for (uint16_t pixel : framebuffer) {
-            EXPECT_CALL(
-                flexibleMemoryControllerMock_, writeData(Data {pixel})
-            );
+            EXPECT_CALL(flexibleMemoryControllerMock_, writeData(pixel));
         }
 
         EXPECT_CALL(
@@ -397,7 +387,7 @@ TEST_F(
         );
 
         EXPECT_CALL(
-            flexibleMemoryControllerMock_, writeData(Data {expectedPixel})
+            flexibleMemoryControllerMock_, writeData(expectedPixel)
         )
             .Times(framebuffer.size());
 
