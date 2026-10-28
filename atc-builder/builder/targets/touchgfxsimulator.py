@@ -95,6 +95,9 @@ class TouchGfxSimulatorTarget(Target):
 
         self.logger.log_success("=== Build succeed ===")
 
+        if quality_check and not self.paths.clang_tidy_report.parent.exists():
+            self.paths.clang_tidy_report.parent.mkdir()
+
         if quality_check:
             with NamedTemporaryFile(
                 dir=self.paths.clang_tidy_report.parent
