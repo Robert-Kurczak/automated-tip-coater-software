@@ -9,7 +9,7 @@ using Instruction = IFlexibleMemoryController::Instruction;
 
 inline constexpr std::array<Instruction, 36> PROPRIETARY_PAGE_0_SETTINGS {
     // ==================== Enable Page 0 ====================
-    Instruction {.registerAddress = 0xF000, .data = 0x50},
+    Instruction {.registerAddress = 0xF000, .data = 0x55},
     Instruction {.registerAddress = 0xF001, .data = 0xAA},
     Instruction {.registerAddress = 0xF002, .data = 0x52},
     Instruction {.registerAddress = 0xF003, .data = 0x08},
@@ -57,7 +57,7 @@ inline constexpr std::array<Instruction, 36> PROPRIETARY_PAGE_0_SETTINGS {
     Instruction {.registerAddress = 0xFF03, .data = 0x01},
 };
 
-inline constexpr std::array<Instruction, 354>
+inline constexpr std::array<Instruction, 355>
     PROPRIETARY_PAGE_1_SETTINGS {
         // ==================== Enable Page 1 ====================
         Instruction {.registerAddress = 0xF000, .data = 0x55},
@@ -75,8 +75,6 @@ inline constexpr std::array<Instruction, 354>
         Instruction {.registerAddress = 0xB102, .data = 0x0D},
         //
         Instruction {.registerAddress = 0xB200, .data = 0x00},
-        Instruction {.registerAddress = 0xB201, .data = 0x00},
-        Instruction {.registerAddress = 0xB202, .data = 0x00},
         //
         Instruction {.registerAddress = 0xB300, .data = 0x05},
         Instruction {.registerAddress = 0xB301, .data = 0x05},
@@ -90,9 +88,9 @@ inline constexpr std::array<Instruction, 354>
         Instruction {.registerAddress = 0xB601, .data = 0x34},
         Instruction {.registerAddress = 0xB602, .data = 0x34},
         //
+        Instruction {.registerAddress = 0xB700, .data = 0x24},
         Instruction {.registerAddress = 0xB701, .data = 0x24},
-        Instruction {.registerAddress = 0xB701, .data = 0x24},
-        Instruction {.registerAddress = 0xB701, .data = 0x24},
+        Instruction {.registerAddress = 0xB702, .data = 0x24},
         //
         Instruction {.registerAddress = 0xB800, .data = 0x24},
         Instruction {.registerAddress = 0xB801, .data = 0x24},
@@ -240,6 +238,7 @@ inline constexpr std::array<Instruction, 354>
         Instruction {.registerAddress = 0xD30D, .data = 0xF6},
         Instruction {.registerAddress = 0xD30E, .data = 0x01},
         Instruction {.registerAddress = 0xD30F, .data = 0x27},
+        Instruction {.registerAddress = 0xD310, .data = 0x01},
         Instruction {.registerAddress = 0xD311, .data = 0x4E},
         Instruction {.registerAddress = 0xD312, .data = 0x01},
         Instruction {.registerAddress = 0xD313, .data = 0x8C},
