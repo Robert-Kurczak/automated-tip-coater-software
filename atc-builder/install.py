@@ -12,7 +12,8 @@ HOST_DEPENDENCIES = {
     "SDL2_image-devel": "For running device UI on dev host machine",
     "bear": "For generating compile_commands.json of STM32CubeIDE targets",
     "STM32CubeIde": "For STM32 projects inside 'platform' subdirectory",
-    "STM32CubeMX": "For generating STM32 pinout configs"
+    "STM32CubeMX": "For generating STM32 pinout configs",
+    "clangd" : "Clang language server"
 }
 
 
