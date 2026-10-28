@@ -2,6 +2,7 @@
 
 #include "Adapters/Adc/Adc.hpp"
 #include "Adapters/AsyncPulsePin/AsyncPulsePin.hpp"
+#include "Adapters/FlexibleMemoryController/FlexibleMemoryController.hpp"
 #include "Adapters/GpioPin/GpioPin.hpp"
 #include "Adapters/I2c/I2c.hpp"
 #include "Adapters/PwmPin/PwmPin.hpp"
@@ -21,7 +22,6 @@
 #include "application/System/Controllers/SpindleController/SpindleController.hpp"
 #include "application/System/Controllers/TouchPanelController/ResistiveTouchPanelController/ResistiveTouchPanelController.hpp"
 #include "application/System/Drivers/Display/Ws17143Display/Ws17143Display.hpp"
-#include "Adapters/FlexibleMemoryController/FlexibleMemoryController.hpp"
 #include "application/System/Drivers/LimitSwitch/GpioLimitSwitch/GpioLimitSwitch.hpp"
 #include "application/System/Drivers/LoggerSink/UartLoggerSink/UartLoggerSink.hpp"
 #include "application/System/Drivers/MotorDriver/Drv8876MotorDriver/Drv8876MotorDriver.hpp"
@@ -240,8 +240,8 @@ private:
     };
 
     FlexibleMemoryController flexibleMemoryController_ {
-        IFlexibleMemoryController::RegisterAddress {0x60000000},
-        IFlexibleMemoryController::DataAddress {0x60000002}
+        0x60000000,
+        0x60000002
     };
     GpioPin lcdResetPin_ {*LCD_RS_GPIO_Port, LCD_RS_Pin};
     Ws17143DisplayPinout pinout_ {.lcdResetPin_ = lcdResetPin_};

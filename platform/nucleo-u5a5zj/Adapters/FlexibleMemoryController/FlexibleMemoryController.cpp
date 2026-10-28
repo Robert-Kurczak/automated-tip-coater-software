@@ -2,44 +2,40 @@
 
 namespace ATC {
 FlexibleMemoryController::FlexibleMemoryController(
-    RegisterAddress registerAddress,
-    DataAddress dataAddress
+    uintptr_t fmcRegisterAddress,
+    uintptr_t fmcDataAddress
 ) :
-    registerRawAddress_ {
-        reinterpret_cast<decltype(registerRawAddress_)>( // NOLINT
-            registerAddress.value
+    fmcRegisterAddress_ {
+        reinterpret_cast<decltype(fmcRegisterAddress_)>( // NOLINT
+            fmcRegisterAddress
         )
     },
-    dataRawAddress_ {
-        reinterpret_cast<decltype(dataRawAddress_)>( // NOLINT
-            dataAddress.value
+    fmcDataAddress_ {
+        reinterpret_cast<decltype(fmcDataAddress_)>( // NOLINT
+            fmcDataAddress
         )
     } {}
 
-void FlexibleMemoryController::writeRegister(
-    RegisterNumber registerNumber
-) {
-    *registerRawAddress_ = registerNumber.value;
+void FlexibleMemoryController::writeRegister(uint16_t registerAddress) {
+    *fmcRegisterAddress_ = registerAddress;
 }
 
-void FlexibleMemoryController::writeData(Data data) {
-    *dataRawAddress_ = data.value;
+void FlexibleMemoryController::writeData(uint16_t data) {
+    *fmcDataAddress_ = data;
 }
 
 void FlexibleMemoryController::write(const Instruction& instruction) {
-    *registerRawAddress_ = instruction.registerNumber.value;
-    *dataRawAddress_ = instruction.data.value;
+    *fmcRegisterAddress_ = instruction.registerAddress;
+    *fmcDataAddress_ = instruction.data;
 }
 
 uint16_t FlexibleMemoryController::readData() const {
-    return *dataRawAddress_;
+    return *fmcDataAddress_;
 }
 
-uint16_t FlexibleMemoryController::read(
-    RegisterNumber registerNumber
-) const {
-    *registerRawAddress_ = registerNumber.value;
+uint16_t FlexibleMemoryController::read(uint16_t registerAddress) const {
+    *fmcRegisterAddress_ = registerAddress;
 
-    return *dataRawAddress_;
+    return *fmcDataAddress_;
 }
 }
