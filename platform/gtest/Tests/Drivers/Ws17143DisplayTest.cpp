@@ -177,12 +177,12 @@ TEST_F(
     {
         InSequence sequence {};
 
-        for (const auto& instruction : PROPRIETARY_HARDWARE_SETTINGS) {
+        for (const auto& instruction : PROPRIETARY_PAGE_0_SETTINGS) {
             EXPECT_CALL(flexibleMemoryControllerMock_, write(instruction))
                 .RetiresOnSaturation();
         }
 
-        for (const auto& instruction : PROPRIETARY_GAMMA_SETTINGS) {
+        for (const auto& instruction : PROPRIETARY_PAGE_1_SETTINGS) {
             EXPECT_CALL(flexibleMemoryControllerMock_, write(instruction))
                 .RetiresOnSaturation();
         }

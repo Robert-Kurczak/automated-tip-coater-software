@@ -53,11 +53,11 @@ void Ws17143Display::resetLcd() {
 }
 
 void Ws17143Display::initSettings() {
-    for (const auto& instruction : PROPRIETARY_HARDWARE_SETTINGS) {
+    for (const auto& instruction : PROPRIETARY_PAGE_0_SETTINGS) {
         flexibleMemoryController_.write(instruction);
     }
 
-    for (const auto& instruction : PROPRIETARY_GAMMA_SETTINGS) {
+    for (const auto& instruction : PROPRIETARY_PAGE_1_SETTINGS) {
         flexibleMemoryController_.write(instruction);
     }
 
